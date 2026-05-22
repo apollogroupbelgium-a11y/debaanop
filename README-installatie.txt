@@ -38,3 +38,9 @@ Belangrijk:
 Update duidelijke vragen
 ------------------------
 Alle zichtbare vragen zijn herschreven in gewone taal. Artikelnummers zoals 7ter, 22bis of 40ter worden niet meer in de vraag getoond. Ze blijven enkel intern in de code als bronverwijzing naar de meegeleverde wegcode.
+
+
+EXTRA CONTROLE BIJ FOUTEN
+Open na deployment: https://jouw-site.pages.dev/api/ping
+Je moet JSON zien met ok:true. Als je 404 krijgt, staat de functions-map niet op de juiste plaats of is de GitHub-root verkeerd ingesteld.
+Deze versie gebruikt PUBLIC_SITE_URL. SITE_URL werkt ook nog als fallback.

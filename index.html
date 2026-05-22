@@ -111,7 +111,9 @@ async function verifyAccess(){
   if(!token){updateAccessUI(); return false;}
   try{
     const res=await fetch('/api/check-access?access='+encodeURIComponent(token));
-    const data=await res.json();
+    const text=await res.text();
+    let data={};
+    try{ data=text ? JSON.parse(text) : {}; }catch(parseError){ throw new Error('API gaf geen JSON terug. Controleer of Cloudflare Functions actief zijn.'); }
     if(data.valid){
       accessValid=true;
       localStorage.setItem('rijbewijs_access_token',token);
@@ -126,8 +128,10 @@ async function startPayment(){
   btn.disabled=true; btn.textContent='Betaling voorbereiden...'; status.textContent='Even geduld. Je wordt doorgestuurd naar Mollie.';
   try{
     const res=await fetch('/api/create-payment',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({product:'rijbewijs-b-7-dagen'})});
-    const data=await res.json();
-    if(!res.ok || !data.checkoutUrl) throw new Error(data.error||'Geen betaallink ontvangen.');
+    const text=await res.text();
+    let data={};
+    try{ data=text ? JSON.parse(text) : {}; }catch(parseError){ throw new Error('De API gaf geen geldig JSON-antwoord. Meestal betekent dit dat de functions-map niet juist gedeployed is of dat de route /api/create-payment niet bestaat. HTTP-status: '+res.status); }
+    if(!res.ok || !data.checkoutUrl) throw new Error(data.error||data.details?.detail||'Geen betaallink ontvangen. HTTP-status: '+res.status);
     location.href=data.checkoutUrl;
   }catch(e){
     status.textContent='Betaling kon niet gestart worden: '+e.message;
