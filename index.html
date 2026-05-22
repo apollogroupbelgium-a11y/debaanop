@@ -32,7 +32,7 @@
     </div>
     <div class="actions">
       <button onclick="startPayment()" id="payBtn">Betaal €9,95</button>
-      <button class="secondary" onclick="closePaywall()">Nog even bekijken</button>
+      <button class="secondary" onclick="closePaywall()">Sluiten</button>
     </div>
     <p class="paynote" id="payStatus">Betaling verloopt veilig via Mollie. Na betaling krijg je automatisch toegang.</p>
   </div>
@@ -55,8 +55,40 @@ function openApp(){document.getElementById('app').style.display='block';document
 function filterQuestions(){let c=document.getElementById('category').value, s=document.getElementById('search').value.toLowerCase(); current=QUESTIONS.filter(q=>(c==='all'||q.category===c)&&(`${q.question} ${q.topic||''} ${q.category} ${q.explanation}`.toLowerCase().includes(s))); index=0; render();}
 function shuffleCurrent(){current=current.sort(()=>Math.random()-.5); index=0; render();}
 function render(){if(!current.length){document.getElementById('question').textContent='Geen vragen gevonden.';return} locked=false; selected=current[index]; document.getElementById('meta').textContent=`Vraag ${index+1} van ${current.length} • ${selected.category}`; document.getElementById('mode').textContent=mode; document.getElementById('bar').style.width=((index+1)/current.length*100)+'%'; document.getElementById('visual').innerHTML=visualSVG(selected.visual); document.getElementById('question').textContent=selected.question; document.getElementById('options').innerHTML=selected.options.map((o,i)=>`<button class="option" onclick="answer(${i})">${String.fromCharCode(65+i)}. ${escapeHtml(o)}</button>`).join(''); document.getElementById('feedback').style.display='none'; renderList();}
-function answer(i){if(locked)return; if(!mayAnswer()){showPaywall(); return;} const already=!!progress[selected.id]; if(!accessValid && !already) setFreeUsed(freeUsed()+1); locked=true; let ok=i===selected.answer; progress[selected.id]={ok,repeat:false}; streak=ok?streak+1:0; [...document.querySelectorAll('.option')].forEach((b,idx)=>{if(idx===selected.answer)b.classList.add('correct'); if(idx===i&&!ok)b.classList.add('wrong');}); let fb=document.getElementById('feedback'); fb.style.display='block'; fb.innerHTML=(ok?'<b>Juist!</b> ':'<b>Nog niet juist.</b> ')+escapeHtml(selected.explanation); save();}
-function nextQuestion(){if(index<current.length-1) index++; else index=0; render();}
+function answer(i){
+  if(locked)return;
+  if(!mayAnswer()){showPaywall(); return;}
+
+  locked=true;
+  let ok=i===selected.answer;
+  progress[selected.id]={ok,repeat:false};
+  streak=ok?streak+1:0;
+
+  let usedNow=freeUsed();
+  if(!accessValid){
+    usedNow=Math.min(FREE_LIMIT, usedNow+1);
+    setFreeUsed(usedNow);
+  }
+
+  [...document.querySelectorAll('.option')].forEach((b,idx)=>{
+    if(idx===selected.answer)b.classList.add('correct');
+    if(idx===i&&!ok)b.classList.add('wrong');
+  });
+  let fb=document.getElementById('feedback');
+  fb.style.display='block';
+  fb.innerHTML=(ok?'<b>Juist!</b> ':'<b>Nog niet juist.</b> ')+escapeHtml(selected.explanation);
+  save();
+
+  // Na de 10de gratis vraag meteen het betalingsscherm tonen.
+  if(!accessValid && usedNow>=FREE_LIMIT){
+    setTimeout(showPaywall, 900);
+  }
+}
+function nextQuestion(){
+  if(!mayAnswer()){showPaywall(); return;}
+  if(index<current.length-1) index++; else index=0;
+  render();
+}
 function markRepeat(){progress[selected.id]={...(progress[selected.id]||{}),repeat:true}; save(); alert('Vraag toegevoegd aan herhalen.');}
 function resetProgress(){if(confirm('Alle voortgang wissen?')){progress={};streak=0;save();render();}}
 function updateStats(){let vals=Object.values(progress), answered=vals.length, good=vals.filter(v=>v.ok).length; document.getElementById('answeredCount').textContent=answered; document.getElementById('scoreCount').textContent=answered?Math.round(good/answered*100)+'%':'0%'; document.getElementById('streakCount').textContent=streak;}
