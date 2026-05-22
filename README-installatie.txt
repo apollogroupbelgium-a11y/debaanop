@@ -33,3 +33,8 @@ Belangrijk:
 - De API-key hoort enkel in Cloudflare Environment Variables.
 - De 7 dagen toegang kan je aanpassen in functions/api/check-access.js en functions/api/mollie-webhook.js bij ACCESS_HOURS.
 - Wil je toch 48 uur toegang, verander ACCESS_HOURS naar 48.
+
+
+Update duidelijke vragen
+------------------------
+Alle zichtbare vragen zijn herschreven in gewone taal. Artikelnummers zoals 7ter, 22bis of 40ter worden niet meer in de vraag getoond. Ze blijven enkel intern in de code als bronverwijzing naar de meegeleverde wegcode.
