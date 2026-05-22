@@ -44,3 +44,6 @@ EXTRA CONTROLE BIJ FOUTEN
 Open na deployment: https://jouw-site.pages.dev/api/ping
 Je moet JSON zien met ok:true. Als je 404 krijgt, staat de functions-map niet op de juiste plaats of is de GitHub-root verkeerd ingesteld.
 Deze versie gebruikt PUBLIC_SITE_URL. SITE_URL werkt ook nog als fallback.
+
+405-fix:
+Deze versie ondersteunt zowel GET als POST op /api/create-payment, zodat Cloudflare geen 405-fout meer geeft wanneer de betaalknop de betaling start.
