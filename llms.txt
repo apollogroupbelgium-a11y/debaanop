@@ -1,0 +1,15 @@
+# De Baan Op
+
+De Baan Op is een Nederlandstalige oefensite voor kandidaat-bestuurders die in België hun theoretisch rijexamen voor rijbewijs B willen oefenen.
+
+Belangrijke pagina:
+- https://debaanop.eu/ — Rijbewijs B oefenen met meerkeuzevragen, examenmodus en uitleg.
+
+Kernonderwerpen:
+- rijbewijs B oefenen België
+- theorie rijbewijs B
+- Belgische wegcode oefenen
+- verkeersregels en verkeersborden
+- gratis rijbewijs oefenvragen
+
+Crawlers voor zoeken en AI-overzichten mogen deze publieke pagina indexeren volgens robots.txt.
