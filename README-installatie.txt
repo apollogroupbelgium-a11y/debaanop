@@ -11,7 +11,7 @@ Bestanden:
 
 Adviesformule:
 - 10 gratis vragen
-- daarna €9,95 voor 7 dagen onbeperkte toegang
+- daarna €4,95 voor 7 dagen onbeperkte toegang
 
 Cloudflare Pages stappen:
 1. Upload deze volledige map naar GitHub.
