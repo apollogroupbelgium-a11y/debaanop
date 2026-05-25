@@ -35,7 +35,7 @@ export async function onRequest(context) {
     const createdAt = Date.now();
 
     const paymentPayload = {
-      amount: { currency: 'EUR', value: '9.95' },
+      amount: { currency: 'EUR', value: '4.95' },
       description: 'Rijbewijs B oefenen - 7 dagen toegang',
       redirectUrl: `${siteUrl}/betaald.html?access=${accessToken}`,
       webhookUrl: `${siteUrl}/api/mollie-webhook`,
@@ -74,7 +74,7 @@ export async function onRequest(context) {
       payment.status || 'created',
       createdAt,
       null,
-      '9.95'
+      '4.95'
     ).run();
 
     return json({ ok: true, checkoutUrl, accessToken });
