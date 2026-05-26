@@ -1,0 +1,1 @@
+Deze versie toont geen zelfgemaakte verkeersbordtekeningen meer. Bij vragen over verkeersborden wordt enkel de officiële bordcode vermeld. Zo vermijden we foutieve of onbestaande borden. Voeg alleen later officiële of handmatig geverifieerde bordafbeeldingen toe.

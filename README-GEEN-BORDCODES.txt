@@ -1,0 +1,1 @@
+Deze versie toont geen verkeersbordcodes in de vragen, antwoordopties, uitleg of visual. Vragen die eerder naar een bordcode verwezen, zijn algemener geformuleerd zodat de gebruiker geen code nodig heeft. Er zijn geen zelfgemaakte verkeersbordafbeeldingen toegevoegd. Voeg later alleen officieel gecontroleerde bordafbeeldingen toe.
