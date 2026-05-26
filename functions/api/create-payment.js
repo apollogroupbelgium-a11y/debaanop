@@ -17,6 +17,14 @@ export async function onRequest(context) {
   if (request.method === 'OPTIONS') return json({ ok: true });
 
   try {
+    let body = {};
+    if (request.method === 'POST') {
+      try { body = await request.json(); } catch (e) { body = {}; }
+    }
+    if (!body.withdrawalConsent || !body.termsAccepted) {
+      return json({ error: 'Voor betaling moet de gebruiker akkoord gaan met de voorwaarden en onmiddellijke digitale toegang.' }, 400);
+    }
+
     if (!env.MOLLIE_API_KEY) {
       return json({ error: 'MOLLIE_API_KEY ontbreekt in Cloudflare Pages → Settings → Environment variables.' }, 500);
     }
@@ -36,7 +44,7 @@ export async function onRequest(context) {
 
     const paymentPayload = {
       amount: { currency: 'EUR', value: '4.95' },
-      description: 'Rijbewijs B oefenen - 7 dagen toegang',
+      description: 'De Baan Op - 7 dagen toegang',
       redirectUrl: `${siteUrl}/betaald.html?access=${accessToken}`,
       webhookUrl: `${siteUrl}/api/mollie-webhook`,
       metadata: { accessToken, product: 'rijbewijs-b-7-dagen' }
