@@ -177,7 +177,6 @@ function checkMaintenanceMode(){
   document.body.style.overflow='';
   return false;
 }
-}
 function hasTestAccess(){
   const active=localStorage.getItem('rijbewijs_test_access')==='true';
   const expiresAt=parseInt(localStorage.getItem('rijbewijs_test_access_until')||'0',10);
