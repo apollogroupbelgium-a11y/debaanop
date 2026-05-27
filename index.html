@@ -150,29 +150,33 @@ const FREE_LIMIT=10;
 const TEST_CODE='maxinelouis2026';
 const SITE_IN_ONDERHOUD=true;
 function isTester(){return localStorage.getItem('debaanop_tester')==='true';}
-function checkMaintenanceMode(){
-  activateTestAccessIfNeeded();
-  const params=new URLSearchParams(location.search);
-  if(params.get('testtoegang')===TEST_CODE){localStorage.setItem('debaanop_tester','true'); history.replaceState({},document.title,location.pathname);}
-  if(SITE_IN_ONDERHOUD && !isTester()){
-    const screen=document.getElementById('maintenanceScreen');
-    if(screen) screen.style.display='flex';
-    document.body.style.overflow='hidden';
-    return true;
-  }
-  return false;
-}
 
 function activateTestAccessIfNeeded(){
   const params=new URLSearchParams(location.search);
   if(params.get('testtoegang')===TEST_CODE){
     const sevenDays=7*24*60*60*1000;
     const expiresAt=Date.now()+sevenDays;
+    localStorage.setItem('debaanop_tester','true');
     localStorage.setItem('rijbewijs_test_access','true');
     localStorage.setItem('rijbewijs_test_access_until',String(expiresAt));
     localStorage.setItem('rijbewijs_free_used','0');
     history.replaceState({},document.title,location.pathname);
   }
+}
+
+function checkMaintenanceMode(){
+  activateTestAccessIfNeeded();
+
+  if(SITE_IN_ONDERHOUD && !isTester()){
+    const screen=document.getElementById('maintenanceScreen');
+    if(screen) screen.style.display='flex';
+    document.body.style.overflow='hidden';
+    return true;
+  }
+
+  document.body.style.overflow='';
+  return false;
+}
 }
 function hasTestAccess(){
   const active=localStorage.getItem('rijbewijs_test_access')==='true';
