@@ -63,6 +63,12 @@
 
 .maintenance-screen{position:fixed;inset:0;z-index:999999;min-height:100vh;background:radial-gradient(circle at 20% 20%,rgba(79,209,255,.22),transparent 32%),radial-gradient(circle at 80% 80%,rgba(91,140,255,.18),transparent 34%),#07111f;color:#fff;display:flex;align-items:center;justify-content:center;padding:24px}.maintenance-card{width:100%;max-width:720px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:28px;padding:44px 34px;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.35);backdrop-filter:blur(14px)}.maintenance-logo{width:76px;height:76px;margin:0 auto 24px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(135deg,#4fd1ff,#5b8cff);font-size:34px}.maintenance-card h1{margin:0 0 16px;font-size:clamp(32px,5vw,52px);letter-spacing:-.04em}.maintenance-card p{color:#b9c4d6;font-size:18px;line-height:1.65;max-width:580px;margin:0 auto 16px}.maintenance-card a{color:white;font-weight:800;text-decoration:none;border-bottom:2px solid #4fd1ff}.maintenance-status{display:inline-flex;align-items:center;gap:10px;margin:12px 0 24px;padding:12px 18px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);font-weight:800}.maintenance-status span{width:10px;height:10px;border-radius:999px;background:#ffce4f;box-shadow:0 0 18px rgba(255,206,79,.8)}
 .image-error{padding:18px;border:1px dashed rgba(255,255,255,.25);border-radius:18px;color:#ffd27a;background:rgba(255,210,122,.08);font-weight:700;text-align:center}
+
+.visual.sign-support{height:auto;min-height:260px;padding:18px;display:block;overflow:visible;background:#111827}
+.sign-support-grid{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;justify-content:center}
+.sign-support-grid img{width:min(100%,360px);height:auto;max-height:520px;object-fit:contain;border-radius:18px;background:#111827;border:1px solid var(--line)}
+.sign-support-caption{width:100%;text-align:center;color:#c6cee8;font-size:13px;margin-top:8px}
+
 </style>
 </head>
 <body>
@@ -193,7 +199,7 @@ function showAll(){mode='Alle vragen'; current=[...QUESTIONS]; index=0; openApp(
 function openApp(){document.getElementById('app').style.display='block';document.getElementById('app').scrollIntoView({behavior:'smooth'});}
 function filterQuestions(){let c=document.getElementById('category').value, s=document.getElementById('search').value.toLowerCase(); current=QUESTIONS.filter(q=>(c==='all'||q.category===c)&&(`${q.question} ${q.topic||''} ${q.category} ${q.explanation}`.toLowerCase().includes(s))); index=0; render();}
 function shuffleCurrent(){current=current.sort(()=>Math.random()-.5); index=0; render();}
-function render(){if(!current.length){document.getElementById('question').textContent='Geen vragen gevonden.';return} locked=false; selected=current[index]; document.getElementById('meta').textContent=`Vraag ${index+1} van ${current.length} • ${selected.category}`; document.getElementById('mode').textContent=mode; document.getElementById('bar').style.width=((index+1)/current.length*100)+'%'; const vis=document.getElementById('visual'); vis.className='visual'+(selected.image?' photo':''); vis.innerHTML=visualSVG(selected); document.getElementById('question').textContent=selected.question; document.getElementById('options').innerHTML=selected.options.map((o,i)=>`<button class="option" onclick="answer(${i})">${String.fromCharCode(65+i)}. ${escapeHtml(o)}</button>`).join(''); document.getElementById('feedback').style.display='none'; renderList();}
+function render(){if(!current.length){document.getElementById('question').textContent='Geen vragen gevonden.';return} locked=false; selected=current[index]; document.getElementById('meta').textContent=`Vraag ${index+1} van ${current.length} • ${selected.category}`; document.getElementById('mode').textContent=mode; document.getElementById('bar').style.width=((index+1)/current.length*100)+'%'; const vis=document.getElementById('visual'); const hasSupport=!selected.image && signImagesForQuestion(selected).length>0; vis.className='visual'+(selected.image?' photo':'')+(hasSupport?' sign-support':''); vis.innerHTML=visualSVG(selected); document.getElementById('question').textContent=selected.question; document.getElementById('options').innerHTML=selected.options.map((o,i)=>`<button class="option" onclick="answer(${i})">${String.fromCharCode(65+i)}. ${escapeHtml(o)}</button>`).join(''); document.getElementById('feedback').style.display='none'; renderList();}
 function answer(i){
   if(locked)return;
   if(!mayAnswer()){showPaywall(); return;}
@@ -280,11 +286,53 @@ async function startPayment(){
   }
 }
 
+
+const SIGN_IMAGE_MAP={
+  "A15":["/images/borden/a15-en-d10.jpg"],
+  "D10":["/images/borden/d10.jpg","/images/borden/d10-versie2.jpg","/images/borden/d10-gedeeld-fiets-voetgangers.jpg"],
+  "A21":["/images/borden/a21.jpg"],
+  "A23":["/images/borden/a23.jpg"],
+  "A41":["/images/borden/a41.jpg"],
+  "B15":["/images/borden/b15.jpg","/images/borden/b15-en-f87.jpg"],
+  "B19":["/images/borden/b19-en-f49.jpg"],
+  "F49":["/images/borden/f49.jpg","/images/borden/b19-en-f49.jpg"],
+  "F87":["/images/borden/b15-en-f87.jpg"],
+  "C1":["/images/borden/c1-en-c11.jpg"],
+  "C11":["/images/borden/c1-en-c11.jpg"],
+  "C25":["/images/borden/c25.jpg"],
+  "C3":["/images/borden/c3-en-f45b.jpg"],
+  "F45B":["/images/borden/c3-en-f45b.jpg"],
+  "F45":["/images/borden/f45.jpg","/images/borden/f45-versie2.jpg","/images/borden/f45-doodlopende-straat.jpg"],
+  "F19":["/images/borden/f19.jpg","/images/borden/f19-uitgezonderd-fietsers-bromfietsers.jpg"],
+  "F4A":["/images/borden/f4a.jpg","/images/borden/f4a-zone-30.jpg"],
+  "F4B":["/images/borden/f4b-einde-zone-30.jpg"],
+  "E9A":["/images/borden/e9a.jpg"]
+};
+function signImagesForQuestion(q){
+  const combined = [
+    q.article||'', q.topic||'', q.question||'', q.explanation||'',
+    ...(Array.isArray(q.options)?q.options:[]),
+    ...(Array.isArray(q.signs)?q.signs:[])
+  ].join(' ').toUpperCase();
+  const found=[];
+  Object.keys(SIGN_IMAGE_MAP).forEach(code=>{
+    const re=new RegExp('(^|[^A-Z0-9])'+code+'([^A-Z0-9]|$)');
+    if(re.test(combined)){
+      SIGN_IMAGE_MAP[code].forEach(src=>{ if(!found.includes(src)) found.push(src); });
+    }
+  });
+  return found.slice(0,3);
+}
+
 function visualSVG(qOrType){
   const q = (qOrType && typeof qOrType === 'object') ? qOrType : { visual: String(qOrType || 'Algemene wegcode'), signs: [] };
   if(q.image){
     const alt = escapeHtml(q.imageAlt || 'Verkeerssituatie met foto');
-    return `<img src="${escapeHtml(q.image)}" alt="${alt}" loading="lazy">`;
+    return `<img src="${escapeHtml(q.image)}" alt="${alt}" loading="lazy" onerror="this.outerHTML='<div class=&quot;image-error&quot;>Foto kon niet geladen worden. Controleer of de map /images aanwezig is in GitHub.</div>'">`;
+  }
+  const supportImages = signImagesForQuestion(q);
+  if(supportImages.length){
+    return `<div class="sign-support-grid">${supportImages.map((src,idx)=>`<img src="${escapeHtml(src)}" alt="Verkeersbord bij deze vraag" loading="lazy">`).join('')}<div class="sign-support-caption">Officiële bordfoto ter ondersteuning van deze vraag.</div></div>`;
   }
   const type = String(q.visual || q.category || q.topic || 'Algemene wegcode');
   const signs = Array.isArray(q.signs) ? q.signs.filter(Boolean).map(s => String(s).trim()) : [];
