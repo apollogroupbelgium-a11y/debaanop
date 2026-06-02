@@ -1,0 +1,1 @@
+Deze versie is teruggebracht van 1106 naar exact 1000 vragen. Er zijn 106 minder duidelijke of meer generieke tekstvragen zonder foto verwijderd. De fotovragen zijn behouden en de foto's worden volledig zichtbaar weergegeven.
