@@ -2,6 +2,50 @@
 /* Vragen herschreven naar duidelijke examenstijl: geen vage verwijzingen zoals "dit" of "deze regel". */
 let QUESTIONS=[];
 
+/* Basisvariabelen en helpers - nodig omdat de vragen nu extern in questions.json staan. */
+let current=[];
+let index=0;
+let selected=null;
+let mode='Oefenmodus';
+let accessValid=false;
+let questionTimer=null;
+let questionStartedAt=0;
+let locked=false;
+const FREE_LIMIT=10;
+const QUESTION_TIME=20;
+
+let progress={};
+let streak=0;
+try{
+  progress=JSON.parse(localStorage.getItem('rijbewijs_progress')||'{}') || {};
+}catch(e){ progress={}; }
+try{
+  streak=parseInt(localStorage.getItem('rijbewijs_streak')||'0',10) || 0;
+}catch(e){ streak=0; }
+
+function save(){
+  try{
+    localStorage.setItem('rijbewijs_progress', JSON.stringify(progress));
+    localStorage.setItem('rijbewijs_streak', String(streak));
+  }catch(e){}
+  updateStats();
+}
+
+function hasTestAccess(){
+  const params=new URLSearchParams(location.search);
+  const test=params.get('testtoegang');
+  return test==='maxinelouis2026' || test==='true' || localStorage.getItem('rijbewijs_test_access')==='true';
+}
+
+function checkMaintenanceMode(){
+  const params=new URLSearchParams(location.search);
+  const screen=document.getElementById('maintenanceScreen');
+  const forced=params.get('maintenance')==='1';
+  if(screen) screen.style.display = forced ? 'flex' : 'none';
+  return forced;
+}
+
+
 function cats(){return [...new Set(QUESTIONS.map(q=>q.category))].sort();}
 function init(){document.getElementById('totalCount').textContent=QUESTIONS.length; const sel=document.getElementById('category'); cats().forEach(c=>{let o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o)}); document.getElementById('chips').innerHTML=cats().map(c=>`<span class="chip">${c}</span>`).join(''); updateStats();}
 function startPractice(){mode='Oefenmodus'; current=[...QUESTIONS]; index=0; openApp(); render();}
@@ -224,14 +268,23 @@ function visualSVG(qOrType){
 
 async function loadQuestions(){
   try{
-    const response = await fetch('questions.json', {cache: 'no-store'});
-    if(!response.ok) throw new Error('questions.json kon niet geladen worden');
-    QUESTIONS = await response.json();
+    const response = await fetch('questions.json?v=' + Date.now(), {cache: 'no-store'});
+    if(!response.ok) throw new Error('questions.json kon niet geladen worden. HTTP-status: ' + response.status);
+    const data = await response.json();
+    if(!Array.isArray(data)) throw new Error('questions.json moet een JSON-array met vragen zijn.');
+    QUESTIONS = data;
     document.getElementById('totalCount').textContent = QUESTIONS.length;
+  }catch(err){
+    console.error('Fout bij laden van questions.json:', err);
+    document.getElementById('question').textContent = 'De vragen konden niet geladen worden. Controleer of questions.json geldig is.';
+    return;
+  }
+
+  try{
     if(!checkMaintenanceMode()){ init(); verifyAccess(); }
   }catch(err){
-    console.error(err);
-    document.getElementById('question').textContent = 'De vragen konden niet geladen worden. Controleer of questions.json mee geüpload is.';
+    console.error('Fout bij opstarten van de quiz:', err);
+    document.getElementById('question').textContent = 'De vragen zijn geladen, maar de quiz kon niet starten. Controleer of app.js volledig is geüpload.';
   }
 }
 loadQuestions();
