@@ -1,0 +1,29 @@
+UPLOAD-INSTRUCTIE VOOR GITHUB / CLOUDFLARE PAGES
+
+Deze map heeft nu de juiste structuur.
+
+Belangrijk:
+- Upload de INHOUD van deze map naar de hoofdmap van je GitHub repository.
+- Zet deze volledige map zelf NIET als extra map in GitHub.
+- index.html, app.js en questions.json moeten naast elkaar staan.
+
+De juiste structuur is:
+/
+├─ index.html
+├─ app.js
+├─ questions.json
+├─ algemene-voorwaarden.html
+├─ contact.html
+├─ cookieverklaring.html
+├─ betaald.html
+├─ geweigerd.html
+├─ _headers
+├─ functions/
+└─ images/
+
+Controle na upload:
+Open rechtstreeks:
+https://debaanop.eu/questions.json
+
+Als je daar een lijst met vragen ziet, dan staat questions.json juist.
+Krijg je 404 / not found, dan staat questions.json niet in de hoofdmap.
