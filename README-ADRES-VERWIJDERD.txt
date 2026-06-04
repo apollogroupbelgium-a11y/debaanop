@@ -1,0 +1,1 @@
+Aanpassing: het zichtbare adres is verwijderd uit de websitepagina's. Het ondernemingsnummer BE1036.641.770 blijft vermeld. Vervang vooral algemene-voorwaarden.html, contact.html, privacyverklaring.html en cookieverklaring.html.
