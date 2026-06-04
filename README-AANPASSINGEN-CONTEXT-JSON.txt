@@ -1,0 +1,1 @@
+Aangepast: irrelevante contextzinnen verwijderd, kinderbeveiligingsvraag concreter gemaakt, uitleg rood kruis boven rijstrook gelijkgetrokken, vragen verplaatst naar questions.json en app-code naar app.js met defer. Upload index.html, app.js en questions.json samen.

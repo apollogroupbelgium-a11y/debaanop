@@ -1,0 +1,1 @@
+Aangepast: oude algemene/afgebroken vragen vervangen door 1000 concrete situatievragen. Elke vraag heeft 3 antwoordopties en specifieke feedback. Timer blijft: na 20 seconden wordt de vraag geblokkeerd, het juiste antwoord getoond en de bezoeker moet op Verdergaan klikken. Bij juist antwoord gaat de site automatisch verder.
