@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Rijbewijs B oefenen in België</title>
+  <desc id="desc">Illustratie van een Belgische verkeerssituatie met auto, zebrapad, verkeerslichten, verkeersborden en oefenvragen.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="0.55" stop-color="#1e3a8a"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#334155"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e293b"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#020617" flood-opacity="0.35"/>
+    </filter>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#020617" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="760" rx="36" fill="url(#sky)"/>
+  <circle cx="1010" cy="115" r="54" fill="#fde68a" opacity="0.95"/>
+  <circle cx="1000" cy="118" r="92" fill="#fde68a" opacity="0.13"/>
+
+  <path d="M0 394 C160 320 300 330 450 390 C590 445 690 418 835 350 C985 280 1095 307 1200 355 L1200 760 L0 760Z" fill="#14532d" opacity="0.95"/>
+  <path d="M0 430 C150 370 300 372 455 426 C600 477 700 450 858 382 C1000 321 1116 336 1200 389 L1200 760 L0 760Z" fill="#166534" opacity="0.75"/>
+  <path d="M0 492 C185 410 334 414 505 474 C637 520 735 499 885 435 C1028 374 1133 384 1200 425 L1200 760 L0 760Z" fill="#22c55e" opacity="0.20"/>
+
+  <path d="M514 355 L686 355 L1100 760 L100 760 Z" fill="url(#road)"/>
+  <path d="M591 373 L609 373 L630 760 L568 760 Z" fill="#f8fafc" opacity="0.88"/>
+  <path d="M514 355 L100 760 L0 760 L455 355 Z" fill="#0f172a" opacity="0.28"/>
+  <path d="M686 355 L1100 760 L1200 760 L745 355 Z" fill="#0f172a" opacity="0.28"/>
+
+  <g opacity="0.95">
+    <rect x="377" y="594" width="446" height="34" rx="4" fill="#f8fafc"/>
+    <rect x="335" y="648" width="530" height="42" rx="4" fill="#f8fafc"/>
+    <rect x="290" y="714" width="620" height="46" rx="4" fill="#f8fafc"/>
+  </g>
+
+  <g transform="translate(474 478)" filter="url(#shadow)">
+    <path d="M68 116 H264 C284 116 298 101 292 83 L275 36 C270 22 257 12 242 12 H91 C76 12 64 22 58 36 L40 83 C34 101 48 116 68 116Z" fill="#38bdf8"/>
+    <path d="M97 24 H236 C248 24 258 31 263 42 L274 70 H58 L70 42 C75 31 85 24 97 24Z" fill="#e0f2fe"/>
+    <rect x="52" y="78" width="228" height="46" rx="20" fill="#0ea5e9"/>
+    <circle cx="82" cy="122" r="26" fill="#020617"/>
+    <circle cx="82" cy="122" r="11" fill="#94a3b8"/>
+    <circle cx="250" cy="122" r="26" fill="#020617"/>
+    <circle cx="250" cy="122" r="11" fill="#94a3b8"/>
+    <rect x="74" y="82" width="45" height="13" rx="6" fill="#f8fafc" opacity="0.9"/>
+    <rect x="216" y="82" width="45" height="13" rx="6" fill="#f8fafc" opacity="0.9"/>
+  </g>
+
+  <g transform="translate(178 214)" filter="url(#softShadow)">
+    <rect x="52" y="134" width="12" height="210" rx="6" fill="#64748b"/>
+    <circle cx="58" cy="96" r="74" fill="#ef4444"/>
+    <circle cx="58" cy="96" r="54" fill="#f8fafc"/>
+    <text x="58" y="111" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="46" font-weight="900" fill="#111827">50</text>
+  </g>
+
+  <g transform="translate(838 240)" filter="url(#softShadow)">
+    <rect x="58" y="166" width="12" height="190" rx="6" fill="#64748b"/>
+    <path d="M64 0 L128 112 H0 Z" fill="#ef4444"/>
+    <path d="M64 23 L107 100 H21 Z" fill="#f8fafc"/>
+    <path d="M61 46 h14 l-6 36 h-6z" fill="#111827"/>
+    <circle cx="68" cy="91" r="6" fill="#111827"/>
+    <rect x="5" y="120" width="118" height="50" rx="8" fill="#2563eb"/>
+    <text x="64" y="153" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="28" font-weight="900" fill="#f8fafc">school</text>
+  </g>
+
+  <g transform="translate(316 165)" filter="url(#softShadow)">
+    <rect x="42" y="138" width="12" height="152" rx="6" fill="#64748b"/>
+    <rect x="0" y="0" width="96" height="144" rx="24" fill="#111827"/>
+    <circle cx="48" cy="35" r="18" fill="#ef4444"/>
+    <circle cx="48" cy="72" r="18" fill="#f59e0b" opacity="0.35"/>
+    <circle cx="48" cy="109" r="18" fill="#22c55e" opacity="0.35"/>
+  </g>
+
+  <g transform="translate(782 515)" filter="url(#softShadow)">
+    <rect x="0" y="0" width="268" height="148" rx="24" fill="url(#card)" stroke="rgba(255,255,255,.18)"/>
+    <text x="28" y="44" font-family="Inter,Arial,sans-serif" font-size="24" font-weight="900" fill="#f8fafc">Oefenvraag</text>
+    <rect x="28" y="66" width="200" height="12" rx="6" fill="#38bdf8" opacity="0.75"/>
+    <rect x="28" y="92" width="218" height="12" rx="6" fill="#cbd5e1" opacity="0.45"/>
+    <rect x="28" y="118" width="150" height="12" rx="6" fill="#cbd5e1" opacity="0.32"/>
+  </g>
+
+  <g transform="translate(126 520)" filter="url(#softShadow)">
+    <rect x="0" y="0" width="250" height="118" rx="22" fill="rgba(15,23,42,.88)" stroke="rgba(255,255,255,.16)"/>
+    <text x="24" y="42" font-family="Inter,Arial,sans-serif" font-size="26" font-weight="900" fill="#f8fafc">Rijbewijs B</text>
+    <text x="24" y="75" font-family="Inter,Arial,sans-serif" font-size="18" fill="#cbd5e1">Belgische wegcode</text>
+    <rect x="24" y="91" width="102" height="10" rx="5" fill="#22c55e"/>
+  </g>
+
+  <g transform="translate(658 190)" opacity="0.95">
+    <path d="M0 50 C34 15 74 15 108 50" stroke="#f8fafc" stroke-width="10" stroke-linecap="round" opacity="0.85"/>
+    <path d="M26 78 C48 58 70 58 92 78" stroke="#f8fafc" stroke-width="9" stroke-linecap="round" opacity="0.7"/>
+    <circle cx="54" cy="104" r="8" fill="#f8fafc" opacity="0.85"/>
+  </g>
+</svg>
